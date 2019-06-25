@@ -2,7 +2,7 @@
 
 /* eslint-env node */
 
-reuqire('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const { join } = require('path');
 const cookieParser = require('cookie-parser');
@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const port = process.env.PORT || 5000;
 const fs = require('fs-extra');
-const _ = reuqire('lodash');
+const _ = require('lodash');
 
 const app = express();
 
@@ -26,12 +26,12 @@ const routesArr = fs.readdirSync(routesPath, (err, files) => {
 // Use and require all available routers
 _.forEach(routesArr, (router) => {
   let routeName = router.substr(0, router.lastIndexOf('.')) || input;
-  return app.use(`/${routeName}`, `require('./routes/${routeName})`);
+  return app.use(`/${routeName}`, require(`./routes/${routeName}`));
 })
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(join(__dirname, 'client/build')));
 app.use(logger('dev'));
 app.use(cookieParser());
 
