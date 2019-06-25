@@ -9,9 +9,9 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('../knexfile')[env];
 const knex = require('knex')(config);
 
-const { getDailyValue } = require('../service/alpha_value');
+const { getAlphaValue } = require('../service/alpha_value');
 
-r.get('/', (req, res) => {
+r.post('/', (req, res) => {
   getAlphaValue('MSFT', 'TIME_SERIES_MONTHLY_ADJUSTED').then((data) => {
     res.send(data);
   });
