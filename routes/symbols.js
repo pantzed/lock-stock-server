@@ -9,10 +9,13 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('../knexfile')[env];
 const knex = require('knex')(config);
 
+const { getDailyValue } = require('../service/alpha_daily');
+
 r.get('/', (req, res) => {
-  if (req !== null) {
-    res.send('winning')
-  }
+  getDailyValue().then((data) => {
+    res.send(data);
+  });
+  
 })
 
 module.exports = r;
