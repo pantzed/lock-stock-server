@@ -3,14 +3,15 @@
 /* eslint-env node */
 
 const axios = require('axios');
+const apiKey = process.env.ALPHA_KEY;
 
-const getDaily = (value) => {
-  return axios.get('https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=MSFT&apikey=demo')
+const getValue = (sym, value) => {
+  return axios.get(`https://www.alphavantage.co/query?function=${value}&symbol=${sym}&apikey=${apiKey}`)
   .then((response) => {
     return response.data;
   });
 }
 
 module.exports = {
-  getDailyValue: getDaily
+  getAlphaValue: getValue
 }

@@ -12,10 +12,9 @@ const knex = require('knex')(config);
 const { getDailyValue } = require('../service/alpha_daily');
 
 r.get('/', (req, res) => {
-  getDailyValue().then((data) => {
+  getAlphaValue('MSFT', 'TIME_SERIES_MONTHLY_ADJUSTED').then((data) => {
     res.send(data);
   });
-  
 })
 
 module.exports = r;
